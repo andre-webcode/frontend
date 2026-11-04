@@ -14,7 +14,7 @@ export const Header = () => {
         setIsMenuOpen(!isMenuOpen);
     }
     return (
-        <header>
+        <header className="bg-background border-b border-border">
             <div className="mx-auto w-full max-w-7xl flex items-center justify-between px-6 py-4">
 
                 <div className="flex items-center gap-1">
@@ -23,24 +23,32 @@ export const Header = () => {
                         height={48}
                         className="h-12 w-12 object-contain"
                     />
-                    <span className="text-xl font-bold tracking-tight text-[#1B3954]">
+                    <span className="text-xl font-bold tracking-tight text-primary">
                         Clínica Vida
                     </span>
                 </div>
 
                 <nav className="hidden items-center gap-8 md:flex">
                     <Link
-                        className="text-sm font-medium text-[#64748B] transition-colors hover:text-[#1B3954]"
-                        href="/">Início</Link>
+                        className="text-sm font-medium text-muted transition-colors hover:text-[#16ADE1]"
+                        href="/">Início
+                    </Link>
+
                     <Link
-                        className="text-sm font-medium text-[#64748B] transition-colors hover:text-[#1B3954]"
-                        href="#especialidades">Especialidades</Link>
+                        className="text-sm font-medium text-muted transition-colors hover:text-[#16ADE1]"
+                        href="#especialidades">Especialidades
+                    </Link>
+
                     <Link
-                        className="text-sm font-medium text-[#64748B] transition-colors hover:text-[#1B3954]"
-                        href="#medicos">Médicos</Link>
+                        className="text-sm font-medium text-muted transition-colors hover:text-[#16ADE1]"
+                        href="#medicos">Médicos
+                    </Link>
+
                     <Link
-                        className="text-sm font-medium text-[#64748B] transition-colors hover:text-[#1B3954]"
-                        href="#sobre">Sobre</Link>
+                        className="text-sm font-medium text-muted transition-colors hover:text-[#16ADE1]"
+                        href="#sobre">Sobre
+
+                    </Link>
                 </nav>
 
                 <div>
@@ -88,7 +96,8 @@ export const Header = () => {
                 <nav className="mt-8 flex flex-col gap-6">
 
                     <Link
-                        className="rounded-lg px-3 py-1 text-[#334155] transition-colors hover:bg-[#E8F2F8] hover:text-[#1B3954]" href="/" onClick={toggleMenu} >
+                        className="rounded-lg px-3 py-1 text-[#334155] transition-colors hover:bg-[#E8F2F8] hover:text-[#1B3954]"
+                        href="/" onClick={toggleMenu} >
                         Início
 
                     </Link>
@@ -100,7 +109,8 @@ export const Header = () => {
                     </Link>
 
                     <Link
-                        className="rounded-lg px-3 py-1 text-[#334155] transition-colors hover:bg-[#E8F2F8] hover:text-[#1B3954]" href="#medicos" onClick={toggleMenu}>
+                        className="rounded-lg px-3 py-1 text-[#334155] transition-colors hover:bg-[#E8F2F8] hover:text-[#1B3954]"
+                        href="#medicos" onClick={toggleMenu}>
                         Médicos
                     </Link>
 
