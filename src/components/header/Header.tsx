@@ -2,9 +2,18 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { ChevronDown, ChevronRight, Menu, X, } from "lucide-react";
 import { useState } from "react";
 import { Container } from "../container";
+import { Menu, X } from "lucide-react";
+import {
+    NavigationMenu,
+    NavigationMenuContent,
+    NavigationMenuItem,
+    NavigationMenuLink,
+    NavigationMenuList,
+    NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
+import { specialties } from "@/data/specialties";
 
 
 export const Header = () => {
@@ -15,7 +24,7 @@ export const Header = () => {
         setIsMenuOpen(!isMenuOpen);
     }
     return (
-        <header className="bg-background border-b border-border">
+        <header className="relative bg-background border-b border-border z-50">
             <Container>
                 <div className="flex items-center justify-between  py-4">
 
@@ -36,10 +45,31 @@ export const Header = () => {
                             href="/">Início
                         </Link>
 
-                        <Link
-                            className="text-sm font-medium text-muted transition-colors hover:text-[#16ADE1]"
-                            href="#especialidades">Especialidades
-                        </Link>
+                        <NavigationMenu viewport={false} className="relative">
+                            <NavigationMenuList>
+                                <NavigationMenuItem>
+                                    <NavigationMenuTrigger>
+                                        Especialidades
+                                    </NavigationMenuTrigger>
+
+                                    <NavigationMenuContent className="md:absolute md:left-0 md:top-full">
+                                        <ul className="grid w-[360px] grid-cols-2 gap-2 p-3">
+                                            {specialties.map((specialty) => (
+                                                <li key={specialty.id}>
+                                                    <NavigationMenuLink asChild
+                                                     className="text-sm font-medium text-white transition-colors hover:bg-[#E8F7F6] hover:text-[#164E72]"
+                                                    >
+                                                        <Link href={`#${specialty.id}`}>
+                                                            {specialty.name}
+                                                        </Link>
+                                                    </NavigationMenuLink>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </NavigationMenuContent>
+                                </NavigationMenuItem>
+                            </NavigationMenuList>
+                        </NavigationMenu>
 
                         <Link
                             className="text-sm font-medium text-muted transition-colors hover:text-[#16ADE1]"
@@ -105,10 +135,13 @@ export const Header = () => {
                     </Link>
 
                     <Link
-                        className="rounded-lg px-3 py-1 text-[#334155] transition-colors hover:bg-[#E8F2F8] hover:text-[#1B3954]" href="#especialidades"
-                        onClick={toggleMenu}>
+                        className="rounded-lg px-3 py-1 text-[#334155] transition-colors hover:bg-[#E8F2F8] hover:text-[#1B3954]"
+                        href="#especialidades"
+                        onClick={toggleMenu}
+                    >
                         Especialidades
                     </Link>
+
 
                     <Link
                         className="rounded-lg px-3 py-1 text-[#334155] transition-colors hover:bg-[#E8F2F8] hover:text-[#1B3954]"
