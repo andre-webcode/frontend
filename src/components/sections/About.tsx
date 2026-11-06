@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image"
 import { Container } from "../container"
 import Link from "next/link"
@@ -7,13 +9,10 @@ export const About = () => {
     return (
         <section className="bg-[#F5FAFC] py-20">
             <Container>
-                <div className="flex flex-col gap-10 md:flex-row md:items-center">
-                    <Image
-                        src="/5.jpg"
-                        alt="atendimento"
-                        width={600}
-                        height={400}
-                        className="h-[350px] w-full rounded-2xl object-cover md:w-1/2"
+                
+                    <div
+                        className="h-[250px] md:h-[350px] w-full rounded-2xl md:bg-fixed bg-[35%_center] bg-cover "
+                        style={{ backgroundImage: "url('/5.jpg')" }}
                     />
 
                     <div className="max-w-xl md:flex-1">
@@ -24,7 +23,7 @@ export const About = () => {
                         <h2 className="mt-3 text-3xl font-bold text-[#164E72] md:text-4xl">
                             Cuidar da sua saúde é a nossa prioridade.
                         </h2>
-                        
+
                         <p className="mt-5 text-base leading-relaxed text-[#526575]">
                             Na Clínica Vida, acreditamos que cuidar da saúde vai além de consultas.
                             Nosso compromisso é oferecer atendimento humanizado, com profissionais
@@ -39,7 +38,7 @@ export const About = () => {
                         </Link>
                     </div>
 
-                </div>
+          
 
 
             </Container>

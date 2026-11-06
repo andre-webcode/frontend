@@ -1,7 +1,10 @@
+
+
 import Image from "next/image";
 import { Container } from "../container";
 
 export const Doctors = () => {
+
     const doctors = [
         {
             name: "Dra. Ana Silva",
@@ -24,6 +27,8 @@ export const Doctors = () => {
             image: "/4.jpg",
         },
     ];
+    
+ 
 
     return (
         <section>
@@ -38,11 +43,13 @@ export const Doctors = () => {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
+                <div
+                    className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
                     {doctors.map((doctor) => (
-                        <div 
-                        className="rounded-2xl bg-white p-4 shadow-[0_8px_25px_rgba(22,78,114,0.08)] transition-shadow duration-300 hover:shadow-[0_12px_30px_rgba(22,78,114,0.14)]"
-                        key={doctor.name}>
+                        <div
+                            className="rounded-2xl bg-white p-4 shadow-[0_8px_25px_rgba(22,78,114,0.08)] transition-shadow duration-300 hover:shadow-[0_12px_30px_rgba(22,78,114,0.14)]"
+                            key={doctor.name}>
+
                             <Image
                                 src={doctor.image}
                                 alt={doctor.name}
@@ -50,8 +57,13 @@ export const Doctors = () => {
                                 height={300}
                                 className="h-72 w-full rounded-2xl object-cover object-top"
                             />
-                            <h3 className="mt-4 text-lg font-semibold text-[#164E72]">{doctor.name}</h3>
-                            <p className="mt-1 text-sm text-[#526575]">{doctor.specialty}</p>
+                            
+                            <h3 className="mt-4 text-lg font-semibold text-[#164E72]">
+                                {doctor.name}
+                            </h3>
+                            <p className="mt-1 text-sm text-[#526575]">
+                                {doctor.specialty}
+                            </p>
 
                         </div>
                     ))}
