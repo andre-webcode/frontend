@@ -1,45 +1,7 @@
-import { HeartPulse, Baby, Stethoscope, Bone, Microscope, Activity, } from "lucide-react";
+import { specialties } from "@/data/specialties";
 import { Container } from "../container";
 import Image from "next/image";
 
-const specialties = [
-	{
-		name: "Cardiologia",
-		description: "Cuidados com a saúde do coração.",
-		icon: HeartPulse,
-		image: "/cardiologia.jpg",
-	},
-	{
-		name: "Pediatria",
-		description: "Atenção especial à saúde infantil.",
-		icon: Baby,
-		image: "/pediatria.jpg",
-	},
-	{
-		name: "Clínica Geral",
-		description: "Cuidado completo para sua saúde.",
-		icon: Stethoscope,
-		image: "/clínica-geral.jpg",
-	},
-	{
-		name: "Ortopedia",
-		description: "Cuidados com ossos e articulações.",
-		icon: Bone,
-		image: "/ortopedia.jpg",
-	},
-	{
-		name: "Dermatologia",
-		description: "Saúde e cuidado com a pele.",
-		icon: Microscope,
-		image: "/dermatologia.jpg",
-	},
-	{
-		name: "Ginecologia",
-		description: "Cuidado com a saúde da mulher.",
-		icon: Activity,
-		image: "/ginecologia.jpg",
-	},
-];
 
 export const Specialties = () => {
 	return (
@@ -67,7 +29,7 @@ export const Specialties = () => {
 
 						return (
 							<div
-								key={specialty.name}
+								key={specialty.id}
 								className="relative group overflow-hidden rounded-2xl border border-[#DCE8ED] bg-white p-7 shadow-[0_8px_25px_rgba(22,78,114,0.07)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(22,78,114,0.12)]"
 							>
 								<div className="absolute inset-0 z-0">

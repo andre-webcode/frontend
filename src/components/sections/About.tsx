@@ -1,6 +1,5 @@
 "use client"
 
-import Image from "next/image"
 import { Container } from "../container"
 import Link from "next/link"
 
