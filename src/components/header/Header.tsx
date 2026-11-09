@@ -41,7 +41,7 @@ export const Header = () => {
 
                     <nav className="hidden items-center gap-8 md:flex">
                         <Link
-                            className="text-sm font-medium text-muted transition-colors hover:text-[#16ADE1]"
+                            className="text-sm font-medium text-muted transition-colors hover:text-hover"
                             href="/">Início
                         </Link>
 
@@ -53,11 +53,11 @@ export const Header = () => {
                                     </NavigationMenuTrigger>
 
                                     <NavigationMenuContent className="md:absolute md:left-0 md:top-full">
-                                        <ul className="grid w-[360px] grid-cols-2 gap-2 p-3">
+                                        <ul className="grid w-\[360px\] grid-cols-2 gap-2 p-3">
                                             {specialties.map((specialty) => (
                                                 <li key={specialty.id}>
                                                     <NavigationMenuLink asChild
-                                                     className="text-sm font-medium text-white transition-colors hover:bg-[#E8F7F6] hover:text-[#164E72]"
+                                                     className="text-sm font-medium text-white transition-colors hover:bg-soft hover:text-primary"
                                                     >
                                                         <Link href={`#${specialty.id}`}>
                                                             {specialty.name}
@@ -72,12 +72,12 @@ export const Header = () => {
                         </NavigationMenu>
 
                         <Link
-                            className="text-sm font-medium text-muted transition-colors hover:text-[#16ADE1]"
+                            className="text-sm font-medium text-muted transition-colors hover:text-hover"
                             href="#medicos">Médicos
                         </Link>
 
                         <Link
-                            className="text-sm font-medium text-muted transition-colors hover:text-[#16ADE1]"
+                            className="text-sm font-medium text-muted transition-colors hover:text-hover"
                             href="#sobre">Sobre
 
                         </Link>
@@ -85,7 +85,7 @@ export const Header = () => {
 
                     <div>
                         <Link
-                            className="hidden bg-[#1B3954] px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors hover:bg-[#16ADE1] md:inline-flex"
+                            className="hidden bg-primary px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors hover:bg-hover md:inline-flex"
                             href="#agendamento">Agendar consultas</Link>
                     </div>
 
@@ -128,14 +128,14 @@ export const Header = () => {
                 <nav className="mt-8 flex flex-col gap-6">
 
                     <Link
-                        className="rounded-lg px-3 py-1 text-[#334155] transition-colors hover:bg-[#E8F2F8] hover:text-[#1B3954]"
+                        className="rounded-lg px-3 py-1 text-muted transition-colors hover:bg-soft hover:text-primary"
                         href="/" onClick={toggleMenu} >
                         Início
 
                     </Link>
 
                     <Link
-                        className="rounded-lg px-3 py-1 text-[#334155] transition-colors hover:bg-[#E8F2F8] hover:text-[#1B3954]"
+                        className="rounded-lg px-3 py-1 text-muted transition-colors hover:bg-soft hover:text-primary"
                         href="#especialidades"
                         onClick={toggleMenu}
                     >
@@ -144,13 +144,13 @@ export const Header = () => {
 
 
                     <Link
-                        className="rounded-lg px-3 py-1 text-[#334155] transition-colors hover:bg-[#E8F2F8] hover:text-[#1B3954]"
+                        className="rounded-lg px-3 py-1 text-muted transition-colors hover:bg-soft hover:text-primary"
                         href="#medicos" onClick={toggleMenu}>
                         Médicos
                     </Link>
 
                     <Link
-                        className="rounded-lg px-3 py-1 text-[#334155] transition-colors hover:bg-[#E8F2F8] hover:text-[#1B3954]"
+                        className="rounded-lg px-3 py-1 text-muted transition-colors hover:bg-soft hover:text-primary"
                         href="#sobre" onClick={toggleMenu}>
                         Sobre
                     </Link>

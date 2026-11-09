@@ -46,14 +46,14 @@ export const Testimonials = () => {
         <section className="bg-white py-10">
             <Container>
                 <div className="mb-12 max-w-2xl">
-                    <span className="text-[#12AFA0] uppercase font-semibold tracking-widest">Depoimentos</span>
-                    <h2 className="mt-3 text-3xl font-bold text-[#164E72]">O que nossos pacientes dizem</h2>
-                    <p className="mt-4 text-[#526575] leading-relaxed">"Conheça a experiência de quem confia na Clínica Vida para cuidar da sua saúde."</p>
+                    <span className="text-secondary uppercase font-semibold tracking-widest">Depoimentos</span>
+                    <h2 className="mt-3 text-3xl font-bold text-primary">O que nossos pacientes dizem</h2>
+                    <p className="mt-4 text-muted leading-relaxed">"Conheça a experiência de quem confia na Clínica Vida para cuidar da sua saúde."</p>
                 </div>
 
                 <div className="mb-6 flex justify-end gap-3">
                     <button
-                        className="rounded-full border border-[#DCE8ED] p-3 text-[#164E72] transition hover:bg-[#12AFA0] hover:text-white"
+                        className="rounded-full border border-border p-3 text-primary transition hover:bg-secondary hover:text-white"
                         aria-label="Depoimentos anteriores"
                         onClick={handlePrev}
                     >
@@ -61,7 +61,7 @@ export const Testimonials = () => {
                     </button>
 
                     <button
-                        className="rounded-full border border-[#DCE8ED] p-3 text-[#164E72] transition hover:bg-[#12AFA0] hover:text-white"
+                        className="rounded-full border border-border p-3 text-primary transition hover:bg-[text-secondary] hover:text-white"
                         aria-label="Próximos depoimentos"
                         onClick={handleNext}
                     >
@@ -74,7 +74,7 @@ export const Testimonials = () => {
                     className="flex gap-6  overflow-x-auto  scroll-smooth  hide-scrollbar">
                     {testimonials.map((testimonial) => (
                         <div key={testimonial.id}
-                            className="w-full shrink-0   rounded-2xl p-5 border text-center border-[#DCE8ED] bg-white md:p-8 shadow-sm md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
+                            className="w-full shrink-0   rounded-2xl p-5 border text-center border-border bg-white md:p-8 shadow-sm md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
                         >
                             <div className="mb-4 flex justify-center gap-1">
                                 <Star className="fill-amber-400 text-amber-400" />
@@ -84,7 +84,7 @@ export const Testimonials = () => {
                                 <Star className="fill-amber-400 text-amber-400" />
                             </div>
 
-                            <p className="mb-6 leading-relaxed text-[#526575]">
+                            <p className="mb-6 leading-relaxed text-muted">
                                 {testimonial.comment}
                             </p>
 
@@ -98,11 +98,11 @@ export const Testimonials = () => {
                                 />
 
                                 <div className="text-center">
-                                    <h3 className="font-semibold text-[#164E72]">
+                                    <h3 className="font-semibold text-primary">
                                         {testimonial.name}
                                     </h3>
 
-                                    <span className="text-sm text-[#526575]">
+                                    <span className="text-sm text-muted">
                                         Paciente da Clínica Vida
                                     </span>
                                 </div>

@@ -10,10 +10,12 @@
 
   --color-background: #F5FAFC;
   --color-surface: #FFFFFF;
+  --color-soft: #E8F7F6;
 
   --color-text: #172B45;
   --color-muted: #526575;
   --color-border: #DCE8ED;
+  --color-primary-dark: #1B3954;
 
   --font-sans: var(--font-geist-sans);
 }

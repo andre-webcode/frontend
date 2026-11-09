@@ -5,7 +5,7 @@ import { Container } from "../container";
 export const Hero = () => {
     return (
         <Container>
-            <section className="relative isolate  h-[520px] w-full overflow-hidden rounded-b-[60px]">
+            <section className="relative isolate  h-130 w-full overflow-hidden rounded-b-[60px]">
 
                 <Image
                     src="/doutora.jpg"
@@ -15,12 +15,12 @@ export const Hero = () => {
                     className="object-cover object-center"
                 />
 
-                <div className="absolute inset-0 bg-[#172B45]/55" />
+                <div className="absolute inset-0 bg-text/55" />
 
                 <div className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-6">
                     <div className="max-w-2xl text-white">
 
-                        <span className="mb-4 block text-sm font-semibold uppercase tracking-widest text-[#12AFA0]">
+                        <span className="mb-4 block text-sm font-semibold uppercase tracking-widest text-secondary">
                             Cuidado e confiança
                         </span>
 
@@ -35,7 +35,7 @@ export const Hero = () => {
 
                         <Link
                             href="#agendamento"
-                            className="mt-8 inline-flex rounded-lg bg-[#12AFA0] px-7 py-3 font-semibold text-white transition-colors hover:bg-[#16ADE1]"
+                            className="mt-8 inline-flex rounded-lg bg-secondary px-7 py-3 font-semibold text-white transition-colors hover:bg-hover"
                         >
                             Agendar consulta
                         </Link>

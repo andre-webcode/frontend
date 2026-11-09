@@ -34,11 +34,11 @@ export const Doctors = () => {
         <section>
             <Container>
                 <div>
-                    <span className="text-sm font-semibold uppercase tracking-widest text-[#12AFA0]">CONHEÇA NOSSA EQUIPE</span>
+                    <span className="text-sm font-semibold uppercase tracking-widest text-secundary">CONHEÇA NOSSA EQUIPE</span>
 
-                    <h2 className="mt-3 text-3xl font-bold text-[#164E72] md:text-4xl">Nossos profissionais</h2>
+                    <h2 className="mt-3 text-3xl font-bold text-primary md:text-4xl">Nossos profissionais</h2>
 
-                    <p className="mt-4 max-w-xl leading-relaxed text-[#526575]">
+                    <p className="mt-4 max-w-xl leading-relaxed text-muted">
                         Profissionais qualificados e dedicados a cuidar da sua saúde.
                     </p>
                 </div>
@@ -58,10 +58,10 @@ export const Doctors = () => {
                                 className="h-72 w-full rounded-2xl object-cover object-top"
                             />
                             
-                            <h3 className="mt-4 text-lg font-semibold text-[#164E72]">
+                            <h3 className="mt-4 text-lg font-semibold text-primary">
                                 {doctor.name}
                             </h3>
-                            <p className="mt-1 text-sm text-[#526575]">
+                            <p className="mt-1 text-sm text-muted">
                                 {doctor.specialty}
                             </p>
 
