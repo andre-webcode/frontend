@@ -10,6 +10,16 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "mockmind-api.uifaces.co",
+      },
+    ],
+  },
+
 };
+
 
 export default nextConfig;
