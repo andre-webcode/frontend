@@ -43,7 +43,7 @@ export const Testimonials = () => {
     }
 
     return (
-        <section className="bg-white py-10">
+        <section className="bg-white py-4">
             <Container>
                 <div className="mb-12 max-w-2xl">
                     <span className="text-secondary uppercase font-semibold tracking-widest">Depoimentos</span>

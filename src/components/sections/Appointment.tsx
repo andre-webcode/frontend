@@ -1,9 +1,43 @@
+"use client"
+
 import { specialties } from "@/data/specialties"
 import { Container } from "../container"
 import { MapPin, Clock, MessageCircle } from "lucide-react"
+import { api } from "@/services/api";
+import { useState, useEffect } from "react";
+import { Doctor } from "@/types/doctor";
+import { filterDoctors } from "@/utils/filter-doctors";
 
 
 export const Appointment = () => {
+    const [doctors, setDoctors] = useState<Doctor[]>([]);
+    const [selectedSpecialty, setSelectedSpecialty] = useState("");
+    const [selectedDoctor, setSelectedDoctor] = useState("");
+
+
+    const filteredDoctors = filterDoctors(doctors, selectedSpecialty);
+
+    useEffect(() => {
+        const getDoctors = async () => {
+
+            try {
+                const data = await api("doctors");
+
+                setDoctors(data);
+
+
+            } catch (error) {
+
+                console.error("Erro ao buscar médicos:", error);
+            }
+
+        }
+
+        getDoctors();
+
+    }, []);
+
+
     return (
         <section id="agendamento" className="bg-background py-20">
             <Container>
@@ -127,7 +161,11 @@ export const Appointment = () => {
                                     <select
                                         id="specialty"
                                         name="specialty"
-                                        defaultValue=""
+                                        value={selectedSpecialty}
+                                        onChange={(e) => {
+                                            setSelectedSpecialty(e.target.value);
+                                            setSelectedDoctor("");
+                                        }} 
                                         className="w-full rounded-lg border border-border bg-white px-4 py-3 text-sm text-muted outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20"
                                     >
                                         <option value="" disabled>
@@ -150,12 +188,19 @@ export const Appointment = () => {
                                     <select
                                         id="doctor"
                                         name="doctor"
-                                        defaultValue=""
+                                        value={selectedDoctor}
+                                        onChange={(e) => setSelectedDoctor(e.target.value)}
                                         className="w-full rounded-lg border border-border bg-white px-4 py-3 text-sm text-muted outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20"
                                     >
                                         <option value="" disabled>
                                             Selecione um médico
                                         </option>
+
+                                        {filteredDoctors.map((doctor) => (
+                                            <option key={doctor.id} value={doctor.id}>
+                                                {doctor.name}
+                                            </option>
+                                        ))}
                                     </select>
                                 </div>
                             </div>
@@ -200,7 +245,11 @@ export const Appointment = () => {
                             </div>
                         </div>
                     </div>
+
+
                 </div>
+
+
             </Container>
         </section>
     )

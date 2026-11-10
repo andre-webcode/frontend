@@ -53,7 +53,7 @@ export const Header = () => {
                                     </NavigationMenuTrigger>
 
                                     <NavigationMenuContent className="md:absolute md:left-0 md:top-full">
-                                        <ul className="grid w-\[360px\] grid-cols-2 gap-2 p-3">
+                                        <ul className="grid w-90 grid-cols-2 gap-2 p-3">
                                             {specialties.map((specialty) => (
                                                 <li key={specialty.id}>
                                                     <NavigationMenuLink asChild
