@@ -7,15 +7,23 @@ import { api } from "@/services/api";
 import { useState, useEffect } from "react";
 import { Doctor } from "@/types/doctor";
 import { filterDoctors } from "@/utils/filter-doctors";
+import { DoctorAvailability } from "@/types/doctor-availability";
+import { getDayOfWeek } from "@/utils/get-day-of-week";
+import { filterDoctorAvailability } from "@/utils/filter-doctor-availability";
 
 
 export const Appointment = () => {
     const [doctors, setDoctors] = useState<Doctor[]>([]);
     const [selectedSpecialty, setSelectedSpecialty] = useState("");
     const [selectedDoctor, setSelectedDoctor] = useState("");
+    const [selectedDate, setSelectedDate] = useState("");
+    const [availabilities, setAvailabilities] = useState<DoctorAvailability[]>([]);
 
 
     const filteredDoctors = filterDoctors(doctors, selectedSpecialty);
+    const selectedDay = selectedDate ? getDayOfWeek(selectedDate) : "";
+    const availableForSelectedDay = filterDoctorAvailability(availabilities, selectedDay)
+    
 
     useEffect(() => {
         const getDoctors = async () => {
@@ -37,6 +45,23 @@ export const Appointment = () => {
 
     }, []);
 
+    useEffect(() => {
+        if (!selectedDoctor) return;
+
+        const getAvailabilities = async () => {
+            try {
+                const data = await api(`doctors/${selectedDoctor}/availabilities`);
+
+                setAvailabilities(data);  
+
+            } catch (error) {
+                console.error("Erro ao buscar disponibilidades:", error);
+            }
+        }
+
+        getAvailabilities();
+
+    }, [selectedDoctor]);
 
     return (
         <section id="agendamento" className="bg-background py-20">
@@ -165,7 +190,7 @@ export const Appointment = () => {
                                         onChange={(e) => {
                                             setSelectedSpecialty(e.target.value);
                                             setSelectedDoctor("");
-                                        }} 
+                                        }}
                                         className="w-full rounded-lg border border-border bg-white px-4 py-3 text-sm text-muted outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20"
                                     >
                                         <option value="" disabled>
@@ -214,6 +239,8 @@ export const Appointment = () => {
                                         type="date"
                                         id="date"
                                         name="date"
+                                        value={selectedDate}
+                                        onChange={(e)=> setSelectedDate(e.target.value)}
                                         className="w-full rounded-lg border border-border bg-white px-4 py-3 text-sm outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20"
                                     />
                                 </div>
