@@ -10,6 +10,7 @@ import { filterDoctors } from "@/utils/filter-doctors";
 import { DoctorAvailability } from "@/types/doctor-availability";
 import { getDayOfWeek } from "@/utils/get-day-of-week";
 import { filterDoctorAvailability } from "@/utils/filter-doctor-availability";
+import { generateAvailableTimes } from "@/utils/generate-available-times";
 
 
 export const Appointment = () => {
@@ -18,13 +19,31 @@ export const Appointment = () => {
     const [selectedDoctor, setSelectedDoctor] = useState("");
     const [selectedDate, setSelectedDate] = useState("");
     const [availabilities, setAvailabilities] = useState<DoctorAvailability[]>([]);
+    const [selectedTime, setSelectedTime] = useState("");
 
 
     const filteredDoctors = filterDoctors(doctors, selectedSpecialty);
     const selectedDay = selectedDate ? getDayOfWeek(selectedDate) : "";
-    const availableForSelectedDay = filterDoctorAvailability(availabilities, selectedDay)
-    
+    const availableForSelectedDay = filterDoctorAvailability(availabilities, selectedDay);
 
+    const doctorSelected = doctors.find((doctor) => doctor.id === Number(selectedDoctor));
+    const durationMinutes = doctorSelected?.defaultDurationMinutes;
+
+    const getAvailableTimes = () => {
+        if (!durationMinutes) return [];
+
+        const times = availableForSelectedDay.map((availability) => {
+            return generateAvailableTimes(
+                availability.startTime,
+                availability.endTime,
+                durationMinutes
+            );
+
+        });
+
+        return times.flat();
+    }
+    
     useEffect(() => {
         const getDoctors = async () => {
 
@@ -52,7 +71,8 @@ export const Appointment = () => {
             try {
                 const data = await api(`doctors/${selectedDoctor}/availabilities`);
 
-                setAvailabilities(data);  
+
+                setAvailabilities(data);
 
             } catch (error) {
                 console.error("Erro ao buscar disponibilidades:", error);
@@ -63,6 +83,8 @@ export const Appointment = () => {
 
     }, [selectedDoctor]);
 
+
+    console.log("Horário escolhido:", selectedTime);
     return (
         <section id="agendamento" className="bg-background py-20">
             <Container>
@@ -240,7 +262,7 @@ export const Appointment = () => {
                                         id="date"
                                         name="date"
                                         value={selectedDate}
-                                        onChange={(e)=> setSelectedDate(e.target.value)}
+                                        onChange={(e) => setSelectedDate(e.target.value)}
                                         className="w-full rounded-lg border border-border bg-white px-4 py-3 text-sm outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20"
                                     />
                                 </div>
@@ -253,12 +275,20 @@ export const Appointment = () => {
                                     <select
                                         id="time"
                                         name="time"
-                                        defaultValue=""
+                                        value={selectedTime}
+                                        onChange={(e) => setSelectedTime(e.target.value)}
                                         className="w-full rounded-lg border border-border bg-white px-4 py-3 text-sm text-muted outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20"
                                     >
                                         <option value="" disabled>
                                             Selecione um horário
                                         </option>
+
+                                        {getAvailableTimes().map((time) => (
+                                            <option key={time} value={time}>
+                                                {time}
+                                            </option>
+                                        ))}
+
                                     </select>
                                 </div>
                             </div>
