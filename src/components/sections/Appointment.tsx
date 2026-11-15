@@ -14,12 +14,19 @@ import { generateAvailableTimes } from "@/utils/generate-available-times";
 
 
 export const Appointment = () => {
+    const [name, setName] = useState("");
+    const [phone, setPhone] = useState("");
+    const [email, setEmail] = useState("");
     const [doctors, setDoctors] = useState<Doctor[]>([]);
     const [selectedSpecialty, setSelectedSpecialty] = useState("");
     const [selectedDoctor, setSelectedDoctor] = useState("");
     const [selectedDate, setSelectedDate] = useState("");
     const [availabilities, setAvailabilities] = useState<DoctorAvailability[]>([]);
     const [selectedTime, setSelectedTime] = useState("");
+    const [feedback, setFeedback] = useState<{
+        message: string;
+        type: "success" | "error";
+    } | null>(null);
 
 
     const filteredDoctors = filterDoctors(doctors, selectedSpecialty);
@@ -43,7 +50,54 @@ export const Appointment = () => {
 
         return times.flat();
     }
-    
+
+    const handleSubmit = async () => {
+        setFeedback(null);
+
+        try {
+            const patientData = {
+                name,
+                email,
+                phone
+            };
+
+            const patient = await api("patients", {
+                method: "POST",
+                body: JSON.stringify(patientData)
+            });
+
+            const appointmentDate = new Date(`${selectedDate}T${selectedTime}:00`);
+            const startAt = appointmentDate.toISOString();
+
+            const appointmentData = {
+                patientId: patient.id,
+                doctorId: Number(selectedDoctor),
+                startAt
+
+            };
+
+            await api("appointments", {
+                method: "POST",
+                body: JSON.stringify(appointmentData)
+            });
+
+            setFeedback({
+                message: "Consulta agendada com sucesso!",
+                type: "success"
+            });
+
+        } catch (error) {
+            console.error("Erro ao agendar consulta:", error);
+            setFeedback({
+                message: "Não foi possível agendar sua consulta. Tente novamente.",
+                type: "error"
+            });
+        }
+
+
+    };
+
+
     useEffect(() => {
         const getDoctors = async () => {
 
@@ -84,7 +138,6 @@ export const Appointment = () => {
     }, [selectedDoctor]);
 
 
-    console.log("Horário escolhido:", selectedTime);
     return (
         <section id="agendamento" className="bg-background py-20">
             <Container>
@@ -167,6 +220,8 @@ export const Appointment = () => {
                                     id="name"
                                     name="name"
                                     placeholder="Digite seu nome completo"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
                                     className="w-full rounded-lg border border-border bg-white px-4 py-3 text-sm outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20"
                                 />
                             </div>
@@ -181,6 +236,8 @@ export const Appointment = () => {
                                         id="fone"
                                         name="fone"
                                         placeholder="Digite seu Telefone"
+                                        value={phone}
+                                        onChange={(e) => setPhone(e.target.value)}
                                         className="w-full rounded-lg border border-border bg-white px-4 py-3 text-sm outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20"
                                     />
                                 </div>
@@ -194,6 +251,8 @@ export const Appointment = () => {
                                         id="email"
                                         name="email"
                                         placeholder="Digite seu E-mail"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
                                         className="w-full rounded-lg border border-border bg-white px-4 py-3 text-sm outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20"
                                     />
                                 </div>
@@ -212,6 +271,7 @@ export const Appointment = () => {
                                         onChange={(e) => {
                                             setSelectedSpecialty(e.target.value);
                                             setSelectedDoctor("");
+                                            setSelectedTime("");
                                         }}
                                         className="w-full rounded-lg border border-border bg-white px-4 py-3 text-sm text-muted outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20"
                                     >
@@ -236,7 +296,10 @@ export const Appointment = () => {
                                         id="doctor"
                                         name="doctor"
                                         value={selectedDoctor}
-                                        onChange={(e) => setSelectedDoctor(e.target.value)}
+                                        onChange={(e) => {
+                                            setSelectedDoctor(e.target.value)
+                                            setSelectedTime("");
+                                        }}
                                         className="w-full rounded-lg border border-border bg-white px-4 py-3 text-sm text-muted outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20"
                                     >
                                         <option value="" disabled>
@@ -262,7 +325,10 @@ export const Appointment = () => {
                                         id="date"
                                         name="date"
                                         value={selectedDate}
-                                        onChange={(e) => setSelectedDate(e.target.value)}
+                                        onChange={(e) => {
+                                            setSelectedDate(e.target.value)
+                                            setSelectedTime("");
+                                        }}
                                         className="w-full rounded-lg border border-border bg-white px-4 py-3 text-sm outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20"
                                     />
                                 </div>
@@ -293,8 +359,17 @@ export const Appointment = () => {
                                 </div>
                             </div>
 
+                            {feedback && (
+                                <p className={`text-sm font-medium ${feedback.type === "success"
+                                        ? "text-green-600"
+                                        : "text-red-600"
+                                    }`}>
+                                    {feedback.message}
+                                </p>
+                            )}
+
                             <div className="mt-5">
-                                <button type="submit"
+                                <button type="button" onClick={handleSubmit}
                                     className="w-full rounded-lg px-4 py-3 font-semibold bg-primary text-white hover:bg-hover transition-colors"
                                 >
                                     Solicitar agendamento
