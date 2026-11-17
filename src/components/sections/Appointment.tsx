@@ -23,6 +23,7 @@ export const Appointment = () => {
     const [selectedDate, setSelectedDate] = useState("");
     const [availabilities, setAvailabilities] = useState<DoctorAvailability[]>([]);
     const [selectedTime, setSelectedTime] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [feedback, setFeedback] = useState<{
         message: string;
         type: "success" | "error";
@@ -51,8 +52,10 @@ export const Appointment = () => {
         return times.flat();
     }
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         setFeedback(null);
+        setIsSubmitting(true);
 
         try {
             const patientData = {
@@ -92,6 +95,8 @@ export const Appointment = () => {
                 message: "Não foi possível agendar sua consulta. Tente novamente.",
                 type: "error"
             });
+        } finally {
+            setIsSubmitting(false);
         }
 
 
@@ -201,6 +206,7 @@ export const Appointment = () => {
                     </div>
 
                     <div>
+
                         <div className="rounded-2xl border border-border bg-surface p-6 shadow-sm md:p-8">
                             <h3 className="text-2xl font-bold text-primary">
                                 Solicite seu agendamento
@@ -210,171 +216,182 @@ export const Appointment = () => {
                                 Preencha seus dados para nossa equipe entrar em contato.
                             </p>
 
-                            <div className="mt-6">
-                                <label htmlFor="name" className="mb-2 block text-sm font-medium text-primary">
-                                    Nome completo
-                                </label>
-
-                                <input
-                                    type="text"
-                                    id="name"
-                                    name="name"
-                                    placeholder="Digite seu nome completo"
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
-                                    className="w-full rounded-lg border border-border bg-white px-4 py-3 text-sm outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20"
-                                />
-                            </div>
-
-                            <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
-                                <div>
-                                    <label htmlFor="fone" className="mb-2 block text-sm font-medium text-primary">
-                                        Telefone / WhatsApp
+                            <form onSubmit={handleSubmit}>
+                                <div className="mt-6">
+                                    <label htmlFor="name" className="mb-2 block text-sm font-medium text-primary">
+                                        Nome completo
                                     </label>
+
                                     <input
-                                        type="tel"
-                                        id="fone"
-                                        name="fone"
-                                        placeholder="Digite seu Telefone"
-                                        value={phone}
-                                        onChange={(e) => setPhone(e.target.value)}
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        required
+                                        placeholder="Digite seu nome completo"
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
                                         className="w-full rounded-lg border border-border bg-white px-4 py-3 text-sm outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20"
                                     />
                                 </div>
 
-                                <div>
-                                    <label htmlFor="email" className="mb-2 block text-sm font-medium text-primary">
-                                        E-mail
-                                    </label>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        name="email"
-                                        placeholder="Digite seu E-mail"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        className="w-full rounded-lg border border-border bg-white px-4 py-3 text-sm outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20"
-                                    />
+                                <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
+                                    <div>
+                                        <label htmlFor="fone" className="mb-2 block text-sm font-medium text-primary">
+                                            Telefone / WhatsApp
+                                        </label>
+                                        <input
+                                            type="tel"
+                                            id="fone"
+                                            name="fone"
+                                            required
+                                            placeholder="Digite seu Telefone"
+                                            value={phone}
+                                            onChange={(e) => setPhone(e.target.value)}
+                                            className="w-full rounded-lg border border-border bg-white px-4 py-3 text-sm outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label htmlFor="email" className="mb-2 block text-sm font-medium text-primary">
+                                            E-mail
+                                        </label>
+                                        <input
+                                            type="email"
+                                            id="email"
+                                            name="email"
+                                            required
+                                            placeholder="Digite seu E-mail"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            className="w-full rounded-lg border border-border bg-white px-4 py-3 text-sm outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20"
+                                        />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
-                                <div>
-                                    <label htmlFor="specialty" className="mb-2 block text-sm font-medium text-primary">
-                                        Especialidade
-                                    </label>
+                                <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
+                                    <div>
+                                        <label htmlFor="specialty" className="mb-2 block text-sm font-medium text-primary">
+                                            Especialidade
+                                        </label>
 
-                                    <select
-                                        id="specialty"
-                                        name="specialty"
-                                        value={selectedSpecialty}
-                                        onChange={(e) => {
-                                            setSelectedSpecialty(e.target.value);
-                                            setSelectedDoctor("");
-                                            setSelectedTime("");
-                                        }}
-                                        className="w-full rounded-lg border border-border bg-white px-4 py-3 text-sm text-muted outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20"
-                                    >
-                                        <option value="" disabled>
-                                            Selecione uma especialidade
-                                        </option>
-
-                                        {specialties.map((specialty) => (
-                                            <option key={specialty.id} value={specialty.id}>
-                                                {specialty.name}
+                                        <select
+                                            id="specialty"
+                                            name="specialty"
+                                            required
+                                            value={selectedSpecialty}
+                                            onChange={(e) => {
+                                                setSelectedSpecialty(e.target.value);
+                                                setSelectedDoctor("");
+                                                setSelectedTime("");
+                                            }}
+                                            className="w-full rounded-lg border border-border bg-white px-4 py-3 text-sm text-muted outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20"
+                                        >
+                                            <option value="" disabled>
+                                                Selecione uma especialidade
                                             </option>
-                                        ))}
-                                    </select>
-                                </div>
 
-                                <div>
-                                    <label htmlFor="doctor" className="mb-2 block text-sm font-medium text-primary">
-                                        Médico
-                                    </label>
+                                            {specialties.map((specialty) => (
+                                                <option key={specialty.id} value={specialty.id}>
+                                                    {specialty.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
 
-                                    <select
-                                        id="doctor"
-                                        name="doctor"
-                                        value={selectedDoctor}
-                                        onChange={(e) => {
-                                            setSelectedDoctor(e.target.value)
-                                            setSelectedTime("");
-                                        }}
-                                        className="w-full rounded-lg border border-border bg-white px-4 py-3 text-sm text-muted outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20"
-                                    >
-                                        <option value="" disabled>
-                                            Selecione um médico
-                                        </option>
+                                    <div>
+                                        <label htmlFor="doctor" className="mb-2 block text-sm font-medium text-primary">
+                                            Médico
+                                        </label>
 
-                                        {filteredDoctors.map((doctor) => (
-                                            <option key={doctor.id} value={doctor.id}>
-                                                {doctor.name}
+                                        <select
+                                            id="doctor"
+                                            name="doctor"
+                                            required
+                                            value={selectedDoctor}
+                                            onChange={(e) => {
+                                                setSelectedDoctor(e.target.value)
+                                                setSelectedTime("");
+                                            }}
+                                            className="w-full rounded-lg border border-border bg-white px-4 py-3 text-sm text-muted outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20"
+                                        >
+                                            <option value="" disabled>
+                                                Selecione um médico
                                             </option>
-                                        ))}
-                                    </select>
-                                </div>
-                            </div>
 
-                            <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
-                                <div>
-                                    <label htmlFor="date" className="mb-2 block text-sm font-medium text-primary">
-                                        Data desejada para consulta
-                                    </label>
-                                    <input
-                                        type="date"
-                                        id="date"
-                                        name="date"
-                                        value={selectedDate}
-                                        onChange={(e) => {
-                                            setSelectedDate(e.target.value)
-                                            setSelectedTime("");
-                                        }}
-                                        className="w-full rounded-lg border border-border bg-white px-4 py-3 text-sm outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20"
-                                    />
+                                            {filteredDoctors.map((doctor) => (
+                                                <option key={doctor.id} value={doctor.id}>
+                                                    {doctor.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
                                 </div>
 
-                                <div>
-                                    <label htmlFor="time" className="mb-2 block text-sm font-medium text-primary">
-                                        Horário disponível
-                                    </label>
+                                <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
+                                    <div>
+                                        <label htmlFor="date" className="mb-2 block text-sm font-medium text-primary">
+                                            Data desejada para consulta
+                                        </label>
+                                        <input
+                                            type="date"
+                                            id="date"
+                                            name="date"
+                                            required
+                                            value={selectedDate}
+                                            onChange={(e) => {
+                                                setSelectedDate(e.target.value)
+                                                setSelectedTime("");
+                                            }}
+                                            className="w-full rounded-lg border border-border bg-white px-4 py-3 text-sm outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20"
+                                        />
+                                    </div>
 
-                                    <select
-                                        id="time"
-                                        name="time"
-                                        value={selectedTime}
-                                        onChange={(e) => setSelectedTime(e.target.value)}
-                                        className="w-full rounded-lg border border-border bg-white px-4 py-3 text-sm text-muted outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20"
-                                    >
-                                        <option value="" disabled>
-                                            Selecione um horário
-                                        </option>
+                                    <div>
+                                        <label htmlFor="time" className="mb-2 block text-sm font-medium text-primary">
+                                            Horário disponível
+                                        </label>
 
-                                        {getAvailableTimes().map((time) => (
-                                            <option key={time} value={time}>
-                                                {time}
+                                        <select
+                                            id="time"
+                                            name="time"
+                                            required
+                                            value={selectedTime}
+                                            onChange={(e) => setSelectedTime(e.target.value)}
+                                            className="w-full rounded-lg border border-border bg-white px-4 py-3 text-sm text-muted outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20"
+                                        >
+                                            <option value="" disabled>
+                                                Selecione um horário
                                             </option>
-                                        ))}
 
-                                    </select>
+                                            {getAvailableTimes().map((time) => (
+                                                <option key={time} value={time}>
+                                                    {time}
+                                                </option>
+                                            ))}
+
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
 
-                            {feedback && (
-                                <p className={`text-sm font-medium ${feedback.type === "success"
+                                {feedback && (
+                                    <p className={`text-sm font-medium ${feedback.type === "success"
                                         ? "text-green-600"
                                         : "text-red-600"
-                                    }`}>
-                                    {feedback.message}
-                                </p>
-                            )}
+                                        }`}>
+                                        {feedback.message}
+                                    </p>
+                                )}
 
-                            <div className="mt-5">
-                                <button type="button" onClick={handleSubmit}
-                                    className="w-full rounded-lg px-4 py-3 font-semibold bg-primary text-white hover:bg-hover transition-colors"
-                                >
-                                    Solicitar agendamento
-                                </button>
-                            </div>
+                                <div className="mt-5">
+                                    <button
+                                        type="submit"
+                                        disabled={isSubmitting}
+                                        className="w-full rounded-lg px-4 py-3 font-semibold bg-primary text-white hover:bg-hover transition-colors"
+                                    >
+                                       {isSubmitting ? "Enviando..." : "Solicitar agendamento"}
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
 
