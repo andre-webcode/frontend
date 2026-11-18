@@ -4,8 +4,11 @@ import Image from "next/image"
 import { Container } from "../container"
 import Link from "next/link"
 
+type AboutProps = {
+    showButton?: boolean;
+};
 
-export const About = () => {
+export const About = ({ showButton = true }: AboutProps) => {
     return (
         <section className="	bg-background py-20">
             <Container>
@@ -33,12 +36,14 @@ export const About = () => {
                             qualificados e atenção especial às necessidades de cada paciente.
                         </p>
 
-                        <Link
-                            href="/sobre"
-                            className="mt-7 inline-flex rounded-lg  bg-primary px-7 py-3 font-semibold text-white transition-colors hover:bg-hover"
-                        >
-                            Conheça nossa clínica
-                        </Link>
+                        {showButton && (
+                            <Link
+                                href="/sobre"
+                                className="mt-7 inline-flex rounded-lg bg-primary px-7 py-3 font-semibold text-white transition-colors hover:bg-hover"
+                            >
+                                Conheça nossa clínica
+                            </Link>
+                        )}
                     </div>
 
                 </div>

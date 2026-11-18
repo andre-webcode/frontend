@@ -78,7 +78,7 @@ export const Header = () => {
 
                         <Link
                             className="text-sm font-medium text-muted transition-colors hover:text-hover"
-                            href="#sobre">Sobre
+                            href="/sobre">Sobre
 
                         </Link>
                     </nav>
@@ -136,7 +136,7 @@ export const Header = () => {
 
                     <Link
                         className="rounded-lg px-3 py-1 text-muted transition-colors hover:bg-soft hover:text-primary"
-                        href="#especialidades"
+                        href="/especialidades"
                         onClick={toggleMenu}
                     >
                         Especialidades
@@ -151,7 +151,7 @@ export const Header = () => {
 
                     <Link
                         className="rounded-lg px-3 py-1 text-muted transition-colors hover:bg-soft hover:text-primary"
-                        href="#sobre" onClick={toggleMenu}>
+                        href="/sobre" onClick={toggleMenu}>
                         Sobre
                     </Link>
                 </nav>
