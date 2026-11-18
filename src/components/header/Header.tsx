@@ -73,7 +73,7 @@ export const Header = () => {
 
                         <Link
                             className="text-sm font-medium text-muted transition-colors hover:text-hover"
-                            href="#medicos">Médicos
+                            href="/medicos">Médicos
                         </Link>
 
                         <Link
