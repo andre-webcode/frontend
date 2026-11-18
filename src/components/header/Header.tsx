@@ -59,7 +59,7 @@ export const Header = () => {
                                                     <NavigationMenuLink asChild
                                                      className="text-sm font-medium text-white transition-colors hover:bg-soft hover:text-primary"
                                                     >
-                                                        <Link href={`#${specialty.id}`}>
+                                                        <Link href={`/especialidades#${specialty.id}`}>
                                                             {specialty.name}
                                                         </Link>
                                                     </NavigationMenuLink>

@@ -29,6 +29,7 @@ export const Specialties = () => {
 
 						return (
 							<div
+								id={specialty.id}
 								key={specialty.id}
 								className="relative group overflow-hidden rounded-2xl border border-border bg-white p-7 shadow-[0_8px_25px_rgba(22,78,114,0.07)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(22,78,114,0.12)]"
 							>
