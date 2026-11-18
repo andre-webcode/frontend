@@ -86,7 +86,7 @@ export const Header = () => {
                     <div>
                         <Link
                             className="hidden bg-primary px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors hover:bg-hover md:inline-flex"
-                            href="#agendamento">Agendar consultas</Link>
+                            href="/agendamento">Agendar consultas</Link>
                     </div>
 
                     <button
@@ -145,7 +145,7 @@ export const Header = () => {
 
                     <Link
                         className="rounded-lg px-3 py-1 text-muted transition-colors hover:bg-soft hover:text-primary"
-                        href="#medicos" onClick={toggleMenu}>
+                        href="/medicos" onClick={toggleMenu}>
                         Médicos
                     </Link>
 
