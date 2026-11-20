@@ -31,6 +31,9 @@ export const Appointment = () => {
 
 
     const filteredDoctors = filterDoctors(doctors, selectedSpecialty);
+    console.log("Especialidade selecionada:", selectedSpecialty);
+    console.log("Especialidades dos médicos:", doctors.map((doctor) => doctor.specialty));
+    console.log("Médicos filtrados:", filteredDoctors);
     const selectedDay = selectedDate ? getDayOfWeek(selectedDate) : "";
     const availableForSelectedDay = filterDoctorAvailability(availabilities, selectedDay);
 
@@ -105,41 +108,41 @@ export const Appointment = () => {
 
     useEffect(() => {
         console.log("Appointment foi montado");
-    
+
         const getDoctors = async () => {
             try {
                 console.log("Iniciando busca de médicos");
-    
+
                 const data = await api("doctors");
-    
+
                 console.log("Médicos recebidos:", data);
-    
+
                 setDoctors(data);
             } catch (error) {
                 console.error("Erro ao buscar médicos:", error);
             }
         };
-    
+
         getDoctors();
     }, []);
-    
+
     useEffect(() => {
         if (!selectedDoctor) return;
-    
+
         const getAvailabilities = async () => {
             try {
                 console.log("Buscando disponibilidades:", selectedDoctor);
-    
+
                 const data = await api(`doctors/${selectedDoctor}/availabilities`);
-    
+
                 console.log("Disponibilidades recebidas:", data);
-    
+
                 setAvailabilities(data);
             } catch (error) {
                 console.error("Erro ao buscar disponibilidades:", error);
             }
         };
-    
+
         getAvailabilities();
     }, [selectedDoctor]);
 
@@ -389,7 +392,7 @@ export const Appointment = () => {
                                         disabled={isSubmitting}
                                         className="w-full rounded-lg px-4 py-3 font-semibold bg-primary text-white hover:bg-hover transition-colors"
                                     >
-                                       {isSubmitting ? "Enviando..." : "Solicitar agendamento"}
+                                        {isSubmitting ? "Enviando..." : "Solicitar agendamento"}
                                     </button>
                                 </div>
                             </form>
