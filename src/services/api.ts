@@ -3,6 +3,8 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const api = async (endpoint: string, options: RequestInit = {}) => {
+
+    console.log("API_URL:", API_URL);
     
     const res = await fetch(`${API_URL}/${endpoint}`, {
         method: "GET",
