@@ -104,42 +104,43 @@ export const Appointment = () => {
 
 
     useEffect(() => {
+        console.log("Appointment foi montado");
+    
         const getDoctors = async () => {
-
             try {
+                console.log("Iniciando busca de médicos");
+    
                 const data = await api("doctors");
-
+    
+                console.log("Médicos recebidos:", data);
+    
                 setDoctors(data);
-
-
             } catch (error) {
-
                 console.error("Erro ao buscar médicos:", error);
             }
-
-        }
-
+        };
+    
         getDoctors();
-
     }, []);
-
+    
     useEffect(() => {
         if (!selectedDoctor) return;
-
+    
         const getAvailabilities = async () => {
             try {
+                console.log("Buscando disponibilidades:", selectedDoctor);
+    
                 const data = await api(`doctors/${selectedDoctor}/availabilities`);
-
-
+    
+                console.log("Disponibilidades recebidas:", data);
+    
                 setAvailabilities(data);
-
             } catch (error) {
                 console.error("Erro ao buscar disponibilidades:", error);
             }
-        }
-
+        };
+    
         getAvailabilities();
-
     }, [selectedDoctor]);
 
 
