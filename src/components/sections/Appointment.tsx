@@ -31,9 +31,6 @@ export const Appointment = () => {
 
 
     const filteredDoctors = filterDoctors(doctors, selectedSpecialty);
-    console.log("Especialidade selecionada:", selectedSpecialty);
-    console.log("Especialidades dos médicos:", doctors.map((doctor) => doctor.specialty));
-    console.log("Médicos filtrados:", filteredDoctors);
     const selectedDay = selectedDate ? getDayOfWeek(selectedDate) : "";
     const availableForSelectedDay = filterDoctorAvailability(availabilities, selectedDay);
 
@@ -107,15 +104,12 @@ export const Appointment = () => {
 
 
     useEffect(() => {
-        console.log("Appointment foi montado");
 
         const getDoctors = async () => {
             try {
-                console.log("Iniciando busca de médicos");
 
                 const data = await api("doctors");
 
-                console.log("Médicos recebidos:", data);
 
                 setDoctors(data);
             } catch (error) {
@@ -131,11 +125,8 @@ export const Appointment = () => {
 
         const getAvailabilities = async () => {
             try {
-                console.log("Buscando disponibilidades:", selectedDoctor);
 
                 const data = await api(`doctors/${selectedDoctor}/availabilities`);
-
-                console.log("Disponibilidades recebidas:", data);
 
                 setAvailabilities(data);
             } catch (error) {
